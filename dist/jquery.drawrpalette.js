@@ -354,6 +354,9 @@
                     plugin.update_color.call(currentPicker);
                 } else {
                     currentPicker.hsv = { "h" : 0, "s" : 1, "v" : 1 };
+                    var rgb = plugin.hsv_to_rgb.call(currentPicker,0,1,1);
+                    var hex = plugin.rgb_to_hex.call(currentPicker,rgb.r,rgb.g,rgb.b);
+                    $(this).val(hex);
                     plugin.update_color.call(currentPicker);
                 }
                 
