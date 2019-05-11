@@ -229,7 +229,7 @@
 
                 $(this).hide();
 
-                currentPicker.$button=$("<button><i class='mdi mdi-eyedropper mdi-24px'></i></button>");
+                currentPicker.$button=$("<button><i class='mdi mdi-palette mdi-24px'></i></button>");
                 currentPicker.$button.css({
                    "width" : "40px",
                    "height" : "40px",
@@ -258,14 +258,14 @@
                    "z-index" : 8
                 });
                 
-                currentPicker.$dropdown.find(".ok").on("mouseup.drawrpalette touchend.drawrpalette",function(){
+                currentPicker.$dropdown.find(".ok").css("color","black").on("mouseup.drawrpalette touchend.drawrpalette",function(){
                     plugin.update_value.call(currentPicker);
                     $(currentPicker).trigger("choose.drawrpalette",$(currentPicker).val());
                     currentPicker.$dropdown.hide();
                     $(currentPicker).trigger("close.drawrpalette");
                 });
                 
-                currentPicker.$dropdown.find(".cancel").on("mouseup.drawrpalette touchend.drawrpalette",function(){
+                currentPicker.$dropdown.find(".cancel").css("color","black").on("mouseup.drawrpalette touchend.drawrpalette",function(){
                     plugin.cancel.call(currentPicker);
                     currentPicker.$dropdown.hide();
                     $(currentPicker).trigger("close.drawrpalette");
@@ -353,10 +353,8 @@
                     currentPicker.hsv = hsv;
                     plugin.update_color.call(currentPicker);
                 } else {
-                    currentPicker.hsv = { "h" : 0, "s" : 1, "v" : 1 };
-                    var rgb = plugin.hsv_to_rgb.call(currentPicker,0,1,1);
-                    var hex = plugin.rgb_to_hex.call(currentPicker,rgb.r,rgb.g,rgb.b);
-                    $(this).val(hex);
+                    currentPicker.hsv = { "h" : 0, "s" : 0, "v" : 0 };
+                    $(this).val("#000000");
                     plugin.update_color.call(currentPicker);
                 }
                 
