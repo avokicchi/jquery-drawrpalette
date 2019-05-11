@@ -4,7 +4,7 @@ JQuery drawrpalette is a jquery plugin to create a color picker that doesn't req
 
 Screenshot:
 
-![screenshot of canvas](https://rawrfl.es/jquery-drawrpalette/images/example.jpg "Screenshot of picker")
+![screenshot of canvas](https://rawrfl.es/jquery-drawrpalette/images/sample.jpg "Screenshot of picker")
 
 Usage:
 
