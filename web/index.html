@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang=en>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+	body {
+		margin:0px;
+		-webkit-touch-callout: none;
+		-webkit-text-size-adjust: none;
+	}
+	h1 {
+		background:#eee;
+		color:#333;
+		height:110px;
+		display:block;
+		font-size:3em !important;
+		padding:30px;
+		margin-top:0px !important;
+	}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+	<script type="text/javascript" src="jquery.drawrpalette.js"></script>
+
+</head>
+<body>
+
+	<a href="https://github.com/lieuweprins/jquery-drawrpalette" style="float:right;">
+		<img width="120" height="120" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_green_007200.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
+	</a>
+	<h1>dRawrpalette</h1>
+
+	<div class="container">
+		<br/>
+		<p>
+		Simple color picker with a focus on good ux for the average user, that works on android, ios, and desktop. to be bundled with drawr.
+		</p>
+
+		<a class="btn btn-success" target="_blank" href="jquery-drawrpalette.zip"><i class="mdi mdi-download"></i> download</a> 
+		<a class="btn btn-default" href="https://github.com/lieuweprins/jquery-drawrpalette" target="_blank">View on github</a>
+
+		<p></p>
+
+		<div style="margin-left:10px;margin-bottom:15px;"><b>Example 1</b></div>
+		<input type="text" id ="picker" value="#770033"/>
+		<p></p>
+
+		<pre>
+			//Code for Example 1
+
+			<b>html</b>
+
+			&lt;input type="text" id ="picker" value="#770033" /&gt;
+			
+			<b>js</b>
+
+			$("#picker").drawrpalette();
+		</pre>
+
+		<div style="margin-left:10px;margin-bottom:15px;"><b>Example 2 (inside modal)</b></div>
+
+		<button onclick="$('#testmodal').modal('show');">Show modal</button>
+
+		<p></p>
+
+		No code, since it's exactly the same.
+
+		<br/>
+		<br/>
+
+		<div style="margin-left:10px;margin-bottom:15px;"><b>Example 3 (events,preset value,inline styles and classes,destroy)</b></div>
+
+		<div style="float:right;width:200px;height:300px;background:#fff;border:1px solid #ccc;overflow:auto;" id = "debuglog"></div>
+
+		<input type="text" id ="picker3" value="#770033" style="border:2px solid #ff0000;" class="testclass anotherclass"/>
+
+				<button onclick='$("#picker3").drawrpalette("destroy");'>destroy</button>
+				<button onclick='init_picker3()'>init</button>
+
+		<p></p>
+
+		<pre>
+			//Code for Example 3
+
+			<b>html</b>
+
+			&lt;input type="text" id ="picker" value="#770033" /&gt;
+			
+			<b>js</b>
+
+			function debug(test){
+				$("#debuglog").html($("#debuglog").html() + test + "<br/>");
+				$("#debuglog")[0].scrollTop = $("#debuglog")[0].scrollHeight;
+			}
+
+			$("#picker").drawrpalette().on("preview.drawrpalette",function(event,hexcolor){
+				debug("preview: " + hexcolor);
+			}).on("cancel.drawrpalette",function(event,hexcolor){
+				debug("cancel: " + hexcolor);
+			}).on("choose.drawrpalette",function(event,hexcolor){
+				debug("choose: " + hexcolor);
+			}).on("open.drawrpalette",function(){
+				debug("open");
+			}).on("close.drawrpalette",function(){
+				debug("close");
+			});
+
+			//to destroy and restore original input:
+
+			$("#picker").drawrpalette("destroy");
+		</pre>
+
+		Features
+
+		<ul>
+			<li>Simple but intuitive UI</li>
+			<li>Android/iOS/Desktop support</li>
+			<li>events</li>
+		</ul>
+
+		<hr/>
+
+		This project is maintained by Lieuwe Prins
+
+	</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<div class="modal" tabindex="-1" role="dialog" id="testmodal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Demo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><input type="text" id ="picker2" value="#770033"/></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+function debug(test){
+	$("#debuglog").html($("#debuglog").html() + test + "<br/>");
+	$("#debuglog")[0].scrollTop = $("#debuglog")[0].scrollHeight;
+}
+
+$("#picker").drawrpalette();
+$("#picker2").drawrpalette();
+
+function init_picker3(){
+	$("#picker3").drawrpalette().off("preview.drawrpalette").on("preview.drawrpalette",function(event,hexcolor){
+		debug("preview: " + hexcolor);
+	}).off("cancel.drawrpalette").on("cancel.drawrpalette",function(event,hexcolor){
+		debug("cancel: " + hexcolor);
+	}).off("choose.drawrpalette").on("choose.drawrpalette",function(event,hexcolor){
+		debug("choose: " + hexcolor);
+	}).off("open.drawrpalette").on("open.drawrpalette",function(){
+		debug("open");
+	}).off("close.drawrpalette").on("close.drawrpalette",function(){
+		debug("close");
+	});
+}
+
+init_picker3();
+</script>
+
+</body>
+</html>
