@@ -1,6 +1,10 @@
-# jquery-drawr
+# jquery-drawrpalette
 
 JQuery drawrpalette is a jquery plugin to create a color picker that doesn't require any other libraries.
+
+Screenshot:
+
+![screenshot of canvas](https://rawrfl.es/jquery-drawrpalette/images/example.jpg "Screenshot of picker")
 
 Usage:
 
