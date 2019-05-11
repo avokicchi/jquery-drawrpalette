@@ -187,9 +187,11 @@
                 currentPicker.$dropdown.find(".cancel").off("mouseup.drawrpalette touchend.drawrpalette");
                 currentPicker.$dropdown.off("mousedown.drawrpalette touchstart.drawrpalette");
                 currentPicker.$button.off("mousedown.drawrpalette touchstart.drawrpalette");
-                $(window).off("mousedown.drawrpalette touchstart.drawrpalette");
-                $(window).off("mousemove.drawrpalette touchmove.drawrpalette");
-                $(window).off("mouseup.drawrpalette touchend.drawrpalette");
+
+                $(window).unbind("mousedown.drawrpalette touchstart.drawrpalette",currentPicker.paletteStart);
+                $(window).unbind("mousemove.drawrpalette touchmove.drawrpalette",currentPicker.paletteMove);
+                $(window).unbind("mouseup.drawrpalette touchend.drawrpalette",currentPicker.paletteStop);
+
                 //show original input
                 $(currentPicker).show();
                 //remove components
@@ -203,6 +205,9 @@
                 delete currentPicker.hsl;
                 delete currentPicker.slidingHue;
                 delete currentPicker.slidingHsl;
+                delete currentPicker.paletteStart;
+                delete currentPicker.paletteMove;
+                delete currentPicker.paletteStop;
                 $(currentPicker).removeClass("active-drawrpalette");
             } else if ( action == "set" ){
                 if(!$(currentPicker).hasClass("active-drawrpalette")) {
@@ -347,16 +352,16 @@
                     e.preventDefault();
                     e.stopPropagation();
                 });
-                
-                $(window).on("mousedown.drawrpalette touchstart.drawrpalette",function(){
+
+                currentPicker.paletteStart = function(){
                     if(currentPicker.$dropdown.is(":visible")){
                         plugin.cancel.call(currentPicker);
                         currentPicker.$dropdown.hide();
                         $(currentPicker).trigger("close.drawrpalette");    
                     }
-                });
-
-                $(window).on("mousemove.drawrpalette touchmove.drawrpalette",function(e){
+                };
+                $(window).bind("mousedown.drawrpalette touchstart.drawrpalette",currentPicker.paletteStart);
+                currentPicker.paletteMove = function(e){
                     var ctx = currentPicker.$dropdown.find("canvas")[0].getContext("2d");
                     var mouse_data = plugin.get_mouse_value(e,currentPicker.$dropdown);                   
                     if(mouse_data.y>plugin.pickerSize) mouse_data.y=plugin.pickerSize;
@@ -379,12 +384,13 @@
                         var hex = plugin.rgb_to_hex.call(currentPicker,rgb.r,rgb.g,rgb.b);
                         $(currentPicker).trigger("preview.drawrpalette",hex);
                     }
-                });
-                            
-                $(window).on("mouseup.drawrpalette touchend.drawrpalette",function(){
+                };
+                $(window).bind("mousemove.drawrpalette touchmove.drawrpalette",currentPicker.paletteMove);
+                currentPicker.paletteStop = function(e){
                     currentPicker.slidingHue=false;
                     currentPicker.slidingHsl=false;
-                });
+                };
+                $(window).bind("mouseup.drawrpalette touchend.drawrpalette",currentPicker.paletteStop);
 
                 if($(this).val()!==""){
                     var rgb = plugin.hex_to_rgb($(this).val());
