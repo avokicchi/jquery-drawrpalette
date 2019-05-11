@@ -177,7 +177,10 @@
 
 			var currentPicker = this;	
 			if ( action === "destroy") {
-                if(!$(currentPicker).hasClass("active-drawrpalette")) return false;//can't destroy if not initialized.
+                if(!$(currentPicker).hasClass("active-drawrpalette")) {
+                    console.error("The element you are running this command on is not a drawrpalette.");
+                    return false;//can't destroy if not initialized.
+                }
                 //remove event listeners
                 currentPicker.$button.off("mousedown.drawrpalette touchstart.drawrpalette");
                 currentPicker.$dropdown.find(".ok").off("mouseup.drawrpalette touchend.drawrpalette");
@@ -202,7 +205,10 @@
                 delete currentPicker.slidingHsl;
                 $(currentPicker).removeClass("active-drawrpalette");
             } else if ( action == "set" ){
-
+                if(!$(currentPicker).hasClass("active-drawrpalette")) {
+                    console.error("The element you are running this command on is not a drawrpalette.");
+                    return false;//can't set if not initialized.
+                }
                 $(currentPicker).val(param);
                 var rgb = plugin.hex_to_rgb(param);
                 var hsv = plugin.rgb_to_hsv(rgb.r,rgb.g,rgb.b);
