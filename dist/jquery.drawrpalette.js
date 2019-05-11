@@ -309,24 +309,16 @@
 
                     var viewportLeft = $(window).scrollLeft();
                     var viewportRight = viewportLeft + $(window).width();
-                    console.warn("pos check");
-                    console.warn("elementRight",elementRight);
-                    console.warn("viewportLeft",viewportLeft);
-                    console.warn("elementLeft",elementLeft);
-                    console.warn("viewportRight",viewportRight);
 
                     currentPicker.$dropdown.show();
 
-
                     if(elementRight < viewportRight){//falls within viewport in normal mode
-                        console.warn("position on the right");
                        // position normally     
                         currentPicker.$dropdown.offset({
                             "top" : currentPicker.$button.offset().top + currentPicker.$button.outerHeight(),
                             "left" : currentPicker.$button.offset().left
                         });                 
                     } else {
-                        console.warn("position on the left");
                         currentPicker.$dropdown.offset({
                            "top" : currentPicker.$button.offset().top + currentPicker.$button.outerHeight(),
                             "left" : currentPicker.$button.offset().left - currentPicker.$dropdown.outerWidth() + currentPicker.$button.outerWidth()
