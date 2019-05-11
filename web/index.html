@@ -81,6 +81,7 @@
 
 				<button onclick='$("#picker3").drawrpalette("destroy");'>destroy</button>
 				<button onclick='init_picker3()'>init</button>
+				<button onclick='$("#picker3").drawrpalette("set","#FF00FF");'>set color</button>
 
 		<p></p>
 
@@ -121,6 +122,23 @@
 			<li>Simple but intuitive UI</li>
 			<li>Android/iOS/Desktop support</li>
 			<li>events</li>
+		</ul>
+
+		Methods ($("picker").drawrpalette(methodname,param))
+
+		<ul>
+			<li>destroy (restores the original input)</li>
+			<li>set (sets a hex color)</li>
+		</ul>
+
+		Events
+
+		<ul>
+			<li>preview.drawrpalette (while picking a color)</li>
+			<li>cancel.drawrpalette (dialog closed or cancel pressed)</li>
+			<li>choose.drawrpalette (a color was picked)</li>
+			<li>open.drawrpalette (the dialog is opened)</li>
+			<li>close.drawrpalette (the dialog is closed)</li>
 		</ul>
 
 		<hr/>

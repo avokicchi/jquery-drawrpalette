@@ -201,6 +201,14 @@
                 delete currentPicker.slidingHue;
                 delete currentPicker.slidingHsl;
                 $(currentPicker).removeClass("active-drawrpalette");
+            } else if ( action == "set" ){
+
+                $(currentPicker).val(param);
+                var rgb = plugin.hex_to_rgb(param);
+                var hsv = plugin.rgb_to_hsv(rgb.r,rgb.g,rgb.b);
+                currentPicker.hsv = hsv;
+                plugin.update_color.call(currentPicker);
+
             } else if ( typeof action == "object" || typeof action =="undefined" ){//not an action, but an init call
 
                 var inlineStyles = {};
@@ -382,7 +390,7 @@
                     $(this).val("#000000");
                     plugin.update_color.call(currentPicker);
                 }
-                
+
             }
 		});
 		return this;
