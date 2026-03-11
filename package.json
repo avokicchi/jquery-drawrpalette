@@ -1,26 +1,42 @@
 {
   "name": "jquery-drawrpalette",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "description": "Simple color picker that doesn't require any external resources other than jquery",
-  "main": "gulpfile.js",
-  "dependencies": {
-    "gulp": "^4.0.2"
-  },
-  "devDependencies": {
-    "gulp-concat": "^2.6.1",
-    "gulp-minify": "^3.1.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "dist/jquery-drawrpalette.js",
+  "unpkg": "dist/jquery-drawrpalette-min.js",
+  "jsdelivr": "dist/jquery-drawrpalette-min.js",
+  "keywords": [
+    "jquery",
+    "jquery-plugin",
+    "color",
+    "colorpicker"
+  ],
+  "license": "MIT",
+  "author": "Avokicchi",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lieuweprins/jquery-drawrpalette.git"
+    "url": "git+https://github.com/avokicchi/jquery-drawrpalette.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lieuweprins/jquery-drawrpalette/issues"
+    "url": "https://github.com/avokicchi/jquery-drawrpalette/issues"
   },
-  "homepage": "https://github.com/lieuweprins/jquery-drawrpalette#readme"
+  "homepage": "https://github.com/avokicchi/jquery-drawrpalette#readme",
+  "peerDependencies": {
+    "jquery": ">=1.7"
+  },
+  "devDependencies": {
+    "gulp": "^5.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^2.1.0",
+    "gulp-terser": "^2.1.0"
+  },
+  "scripts": {
+    "build": "gulp scripts",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ]
 }

@@ -1,9 +1,8 @@
 /*!
-* jquery.drawrpalette.js
-* https://github.com/lieuweprins/jquery-drawrpalette
-* Copyright (c) 2019 Lieuwe Prins
-* Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-*/
+ * jquery-drawrpalette
+ * Copyright (c) 2019–present Avokicchi
+ * Released under the MIT License
+ */
 
 (function( $ ) {
  
@@ -33,13 +32,13 @@
         };
         
         plugin.hex_to_rgb = function (hex) {
-		    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-		    return result ? {
-		        r: parseInt(result[1], 16),
-		        g: parseInt(result[2], 16),
-		        b: parseInt(result[3], 16)
-		    } : null;
-		};
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        };
         
         plugin.hsv_to_rgb = function (h, s, v) {
             var r, g, b, i, f, p, q, t;
@@ -101,15 +100,15 @@
             var v = (plugin.pickerSize-y)/plugin.pickerSize;
             return { 's' : s, 'v' : v };
         };
-            	
-		plugin.draw_hsv = function(size,canvas){
+                
+        plugin.draw_hsv = function(size,canvas){
             var hsv = this.hsv;          
-			var ctx = canvas.getContext('2d');
+            var ctx = canvas.getContext('2d');
             ctx.clearRect(0,0,canvas.width,canvas.height);
 
             //draw hsl color space
-			for(row=0; row<size; row++){
-				var grad = ctx.createLinearGradient(0, 0, size,0);               
+            for(var row=0; row<size; row++){
+                var grad = ctx.createLinearGradient(0, 0, size,0);               
                 var value = (size-row)/size;
                 
                 var rgb = plugin.hsv_to_rgb(hsv.h,0,value);
@@ -117,14 +116,14 @@
                 var rgb = plugin.hsv_to_rgb(hsv.h,1,value);
                 grad.addColorStop(1, 'rgb('+rgb.r+', '+rgb.g+','+rgb.b+')');
 
-				ctx.fillStyle=grad;
-				ctx.fillRect(plugin.offset, row+plugin.offset, size, 1);
-			}	
+                ctx.fillStyle=grad;
+                ctx.fillRect(plugin.offset, row+plugin.offset, size, 1);
+            }   
             //draw hue
-            for(row=0; row<size; row++){
+            for(var row=0; row<size; row++){
                 ctx.fillStyle="hsl(" + ((360/size)*row) + ", 100%, 50%)";
                 ctx.fillRect(size+plugin.offset+5, row+plugin.offset, 40, 1);
-            }	
+            }   
             
             ctx.fillStyle = "black";
             ctx.fillRect(size+plugin.offset+3,plugin.offset+(hsv.h * size)-3,44,6);
@@ -144,7 +143,7 @@
             ctx.strokeStyle = "white";
             ctx.arc(pos.x, pos.y, 4, 0, 2 * Math.PI);
             ctx.stroke();
-	    };
+        };
         
         plugin.update_color = function(){
             var hsv = this.hsv;
@@ -172,25 +171,27 @@
             plugin.update_color.call(this);
             $(this).trigger("cancel.drawrpalette",$(this).val());
         };
-	
-		this.each(function() {
+    
+        this.each(function() {
 
-			var currentPicker = this;	
-			if ( action === "destroy") {
+            var currentPicker = this;   
+            if ( action === "destroy") {
                 if(!$(currentPicker).hasClass("active-drawrpalette")) {
                     console.error("The element you are running this command on is not a drawrpalette.");
                     return false;//can't destroy if not initialized.
                 }
                 //remove event listeners
-                currentPicker.$button.off("mousedown.drawrpalette touchstart.drawrpalette");
-                currentPicker.$dropdown.find(".ok").off("mouseup.drawrpalette touchend.drawrpalette");
-                currentPicker.$dropdown.find(".cancel").off("mouseup.drawrpalette touchend.drawrpalette");
-                currentPicker.$dropdown.off("mousedown.drawrpalette touchstart.drawrpalette");
-                currentPicker.$button.off("mousedown.drawrpalette touchstart.drawrpalette");
+                currentPicker.$button.off("pointerdown.drawrpalette");
+                currentPicker.$dropdown.find(".ok").off("pointerup.drawrpalette");
+                currentPicker.$dropdown.find(".cancel").off("pointerup.drawrpalette");
+                currentPicker.$dropdown.off("pointerdown.drawrpalette");
+                currentPicker.$button.off("pointerdown.drawrpalette");
+                currentPicker.$dropdown.off("touchstart.drawrpalette");
 
-                $(window).unbind("mousedown.drawrpalette touchstart.drawrpalette",currentPicker.paletteStart);
-                $(window).unbind("mousemove.drawrpalette touchmove.drawrpalette",currentPicker.paletteMove);
-                $(window).unbind("mouseup.drawrpalette touchend.drawrpalette",currentPicker.paletteStop);
+                $(window).unbind("pointerdown.drawrpalette",currentPicker.paletteStart);
+                $(window).unbind("pointermove.drawrpalette",currentPicker.paletteMove);
+                $(window).unbind("pointerup.drawrpalette",currentPicker.paletteStop);
+                currentPicker.$dropdown.off("pointerup.drawrpalette");
 
                 //show original input
                 $(currentPicker).show();
@@ -229,18 +230,19 @@
                     inlineStyles[styleProperty]=styleValue;
                 }
                 var inlineClasses = currentPicker.className!=="" ? currentPicker.className.split(" ") : [];
-	        	
-				if($(currentPicker).hasClass("active-drawrpalette")) return false;//prevent double init
-				currentPicker.className = currentPicker.className + " active-drawrpalette";
+                
+                if($(currentPicker).hasClass("active-drawrpalette")) return false;//prevent double init
+                currentPicker.className = currentPicker.className + " active-drawrpalette";
 
-	        	//determine settings
-		    	var defaultSettings = {
-		    		"enable_alpha" : false,
+                //determine settings
+                var defaultSettings = {
+                    "enable_alpha" : false,
                     "append_to" : currentPicker,
-		    	};
-	        	if(typeof action == "object") defaultSettings = Object.assign(defaultSettings, action);
-	        	currentPicker.settings = defaultSettings;
-				currentPicker.plugin = plugin;
+                    "auto_apply" : false
+                };
+                if(typeof action == "object") defaultSettings = Object.assign(defaultSettings, action);
+                currentPicker.settings = defaultSettings;
+                currentPicker.plugin = plugin;
                 
                 $(this).wrap("<div class='drawrpallete-wrapper'></div>");
                 this.$wrapper = $(this).parent();
@@ -270,31 +272,38 @@
                 
                 var canvas_height = plugin.pickerSize+(plugin.offset*2);
                 var canvas_width = plugin.pickerSize+40+(plugin.offset*2)+5;
-				currentPicker.$dropdown=$("<div><canvas style='display:block;' class='drawrpallete-canvas' width=" + canvas_width + " height=" + canvas_height + " style='height:" + canvas_height + "px;width:" + canvas_width + "px;'></canvas></div>");
-                currentPicker.$dropdown.append('<div style="height:28px;text-align:right;margin-top:-2px;padding:0px 5px;"><button class="cancel">cancel</button><button style="margin-left:5px;width:40px;" class="ok">ok</button></div>');
-				this.$wrapper.append(currentPicker.$dropdown);
+                currentPicker.$dropdown=$("<div><canvas style='display:block;' class='drawrpallete-canvas' width=" + canvas_width + " height=" + canvas_height + " style='height:" + canvas_height + "px;width:" + canvas_width + "px;'></canvas></div>");
+                if(currentPicker.settings.auto_apply==false){
+                    currentPicker.$dropdown.append('<div style="height:28px;text-align:right;margin-top:-2px;padding:0px 5px;"><button class="cancel">cancel</button><button style="margin-left:5px;width:40px;" class="ok">ok</button></div>');
+                }
+                this.$wrapper.append(currentPicker.$dropdown);
                 currentPicker.$dropdown.css({
                    "background" : "#eee",
                    "width" : canvas_width + "px",
-                   "height" : (canvas_height+ 28) + "px",
+                   "height" : (currentPicker.settings.auto_apply ? canvas_height : (canvas_height+ 28)) + "px",
                    "position" : "absolute",
                    "z-index" : 8
                 });
                 
-                currentPicker.$dropdown.find(".ok").css("color","black").on("mouseup.drawrpalette touchend.drawrpalette",function(){
+                currentPicker.$dropdown.find(".ok").css("color","black").on("pointerup.drawrpalette",function(){
                     plugin.update_value.call(currentPicker);
                     $(currentPicker).trigger("choose.drawrpalette",$(currentPicker).val());
                     currentPicker.$dropdown.hide();
                     $(currentPicker).trigger("close.drawrpalette");
                 });
                 
-                currentPicker.$dropdown.find(".cancel").css("color","black").on("mouseup.drawrpalette touchend.drawrpalette",function(){
+                currentPicker.$dropdown.find(".cancel").css("color","black").on("pointerup.drawrpalette",function(){
                     plugin.cancel.call(currentPicker);
                     currentPicker.$dropdown.hide();
                     $(currentPicker).trigger("close.drawrpalette");
                 });
-                
-                currentPicker.$dropdown.on("mousedown.drawrpalette touchstart.drawrpalette",function(e){
+
+                currentPicker.$dropdown.on("touchstart.drawrpalette",function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+
+                currentPicker.$dropdown.on("pointerdown.drawrpalette",function(e){
                     var mouse_data = plugin.get_mouse_value(e,currentPicker.$dropdown);
                     if(mouse_data.x>0 && mouse_data.x<plugin.pickerSize && mouse_data.y>0 && mouse_data.y<plugin.pickerSize){
                         currentPicker.slidingHsl=true;
@@ -314,12 +323,30 @@
                         var hex = plugin.rgb_to_hex.call(currentPicker,rgb.r,rgb.g,rgb.b);
                         $(currentPicker).trigger("preview.drawrpalette",hex);
                     }
+                    if(currentPicker.settings.auto_apply==true){
+                        plugin.update_value.call(currentPicker);
+                        $(currentPicker).trigger("choose.drawrpalette",$(currentPicker).val());
+                    }
                     e.preventDefault();
                     e.stopPropagation();
                 });
-				currentPicker.$dropdown.hide();
+                currentPicker.$dropdown.on("pointerup.drawrpalette",function(e){
+                    var mouse_data = plugin.get_mouse_value(e,currentPicker.$dropdown);
+                    if(mouse_data.x>0 && mouse_data.x<plugin.pickerSize && mouse_data.y>0 && mouse_data.y<plugin.pickerSize){
+                        if(currentPicker.settings.auto_apply==true){
+                            plugin.update_value.call(currentPicker);
+                            $(currentPicker).trigger("choose.drawrpalette",$(currentPicker).val());
+                            currentPicker.$dropdown.hide();
+                            $(currentPicker).trigger("close.drawrpalette");
+                        }
+                    }
+                });
+
+
+
+                currentPicker.$dropdown.hide();
                
-                currentPicker.$button.on("mousedown.drawrpalette touchstart.drawrpalette",function(e){
+                currentPicker.$button.on("pointerdown.drawrpalette",function(e){
                     currentPicker.slidingHue=false;
                     currentPicker.slidingHsl=false;
 
@@ -332,7 +359,7 @@
                     currentPicker.$dropdown.show();
 
                     if(elementRight < viewportRight){//falls within viewport in normal mode
-                       // position normally     
+                       //position normally     
                         currentPicker.$dropdown.offset({
                             "top" : currentPicker.$button.offset().top + currentPicker.$button.outerHeight(),
                             "left" : currentPicker.$button.offset().left
@@ -360,7 +387,7 @@
                         $(currentPicker).trigger("close.drawrpalette");    
                     }
                 };
-                $(window).bind("mousedown.drawrpalette touchstart.drawrpalette",currentPicker.paletteStart);
+                $(window).bind("pointerdown.drawrpalette",currentPicker.paletteStart);
                 currentPicker.paletteMove = function(e){
                     var ctx = currentPicker.$dropdown.find("canvas")[0].getContext("2d");
                     var mouse_data = plugin.get_mouse_value(e,currentPicker.$dropdown);                   
@@ -384,13 +411,19 @@
                         var hex = plugin.rgb_to_hex.call(currentPicker,rgb.r,rgb.g,rgb.b);
                         $(currentPicker).trigger("preview.drawrpalette",hex);
                     }
+
+                    if((currentPicker.slidingHsl || currentPicker.slidingHue) && currentPicker.settings.auto_apply==true){
+                        plugin.update_value.call(currentPicker);
+                        $(currentPicker).trigger("choose.drawrpalette",$(currentPicker).val());
+                    }
+
                 };
-                $(window).bind("mousemove.drawrpalette touchmove.drawrpalette",currentPicker.paletteMove);
+                $(window).bind("pointermove.drawrpalette",currentPicker.paletteMove);
                 currentPicker.paletteStop = function(e){
                     currentPicker.slidingHue=false;
                     currentPicker.slidingHsl=false;
                 };
-                $(window).bind("mouseup.drawrpalette touchend.drawrpalette",currentPicker.paletteStop);
+                $(window).bind("pointerup.drawrpalette",currentPicker.paletteStop);
 
                 if($(this).val()!==""){
                     var rgb = plugin.hex_to_rgb($(this).val());
@@ -404,8 +437,8 @@
                 }
 
             }
-		});
-		return this;
+        });
+        return this;
  
     };
 
