@@ -20,8 +20,14 @@ There's only one option, auto_apply, which hides the ok and cancel button, and j
 
 More [Info and demos at this link](https://rawrfl.es/jquery-drawrpalette/ "Info and demos at this link")
 
-To build,
+# To build
 
 npm install
 
 npm run build
+
+Also available on npm. 
+
+# To install
+
+npm install jquery-drawrpalette
