@@ -23,4 +23,5 @@ More [Info and demos at this link](https://rawrfl.es/jquery-drawrpalette/ "Info 
 To build,
 
 npm install
+
 npm run build
