@@ -26,8 +26,8 @@ npm install
 
 npm run build
 
-Also available on npm. 
-
 # To install
+
+jquery-drawrpalette is also available on npm:
 
 npm install jquery-drawrpalette
