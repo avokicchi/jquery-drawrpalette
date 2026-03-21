@@ -5,7 +5,7 @@ It's built to work on desktop and mobile seamlessly.
 
 Screenshot:
 
-![screenshot of canvas](https://rawrfl.es/jquery-drawrpalette/images/sample.jpg "Screenshot of picker")
+![screenshot of canvas](https://cachecat.io/jquery-drawrpalette/images/sample.jpg "Screenshot of picker")
 
 Usage:
 
@@ -18,7 +18,7 @@ $("#picker").drawrpalette();
 ```
 There's only one option, auto_apply, which hides the ok and cancel button, and just applies any color changes directly.
 
-More [Info and demos at this link](https://rawrfl.es/jquery-drawrpalette/ "Info and demos at this link")
+More [Info and demos at this link](https://cachecat.io/jquery-drawrpalette/ "Info and demos at this link")
 
 # To build
 
