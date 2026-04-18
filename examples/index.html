@@ -53,10 +53,26 @@
 			<b>html</b>
 
 			&lt;input type="text" id ="picker" /&gt;
-			
+
 			<b>js</b>
 
 			$("#picker").drawrpalette();
+		</pre>
+
+		<br/>
+
+		<div style="margin-left:10px;margin-bottom:15px;"><b>Example 2: alpha channel</b></div>
+		<input type="text" id="picker_alpha" value="#3366ffcc" />
+		<input type="text" id="picker_rgba" value="#33cc3380" />
+
+		<pre>
+			//Code for Example 2: alpha channel
+
+			&lt;input type="text" id="picker_alpha" value="#3366ffcc" /&gt;
+			&lt;input type="text" id="picker_rgba"  value="#33cc3380" /&gt;
+
+			$("#picker_alpha").drawrpalette({ enable_alpha: true });                   //outputs "#rrggbbaa"
+			$("#picker_rgba" ).drawrpalette({ enable_alpha: true, format: "rgba" });   //outputs "rgba(...)"
 		</pre>
 
 		<br/>
@@ -134,6 +150,17 @@
 
 		<ul>
 			<li>auto_apply (no ok button, auto applies color change)</li>
+			<li>enable_alpha (adds an alpha slider and outputs an alpha-aware color string)</li>
+			<li>format ("hex" | "hex8" | "rgba" | "hsla"; defaults to "hex", or "hex8" when enable_alpha is true)</li>
+			<li>aria_label (overrides the swatch button's accessible name)</li>
+		</ul>
+
+		Keyboard
+
+		<ul>
+			<li>Enter / Space on the swatch opens the picker</li>
+			<li>Arrow keys adjust saturation/value; Shift+Arrow adjusts hue; Alt+Arrow adjusts alpha (when enabled)</li>
+			<li>Enter commits; Escape cancels; Tab cycles within the dialog</li>
 		</ul>
 
 		<hr/>
@@ -151,6 +178,8 @@ function debug(test){
 }
 
 $("#picker").drawrpalette();
+$("#picker_alpha").drawrpalette({ enable_alpha: true });
+$("#picker_rgba").drawrpalette({ enable_alpha: true, format: "rgba" });
 
 function init_picker3(){
 	$("#picker3").drawrpalette({ auto_apply: true }).off("preview.drawrpalette").on("preview.drawrpalette",function(event,hexcolor){

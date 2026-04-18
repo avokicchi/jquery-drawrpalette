@@ -1,6 +1,6 @@
 {
   "name": "jquery-drawrpalette",
-  "version": "0.5.0",
+  "version": "0.9.1",
   "description": "Simple color picker that doesn't require any external resources other than jquery",
   "main": "dist/jquery-drawrpalette.js",
   "unpkg": "dist/jquery-drawrpalette-min.js",
