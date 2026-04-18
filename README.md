@@ -5,7 +5,7 @@ It's built to work on desktop and mobile seamlessly.
 
 Screenshot:
 
-![screenshot of canvas](https://cachecat.io/jquery-drawrpalette/images/sample.jpg "Screenshot of picker")
+![screenshot of canvas](https://cachecat.io/jquery-drawrpalette/images/sample2.jpg "Screenshot of picker")
 
 Usage:
 
