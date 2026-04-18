@@ -5,7 +5,7 @@ It's built to work on desktop and mobile seamlessly.
 
 Screenshot:
 
-![screenshot of canvas](https://rawrfl.es/jquery-drawrpalette/images/sample.jpg "Screenshot of picker")
+![screenshot of canvas](https://cachecat.io/jquery-drawrpalette/images/sample.jpg "Screenshot of picker")
 
 Usage:
 
@@ -78,3 +78,11 @@ npm run build
 ```
 
 The build concatenates `src/umd/start.js` + `src/jquery.drawrpalette.js` + `src/umd/end.js` into `dist/jquery.drawrpalette.js`, then minifies to `dist/jquery.drawrpalette-min.js`.
+
+# To install
+
+jquery-drawrpalette is also available on npm:
+
+npm install jquery-drawrpalette
+
+More [Info and demos at this link](https://cachecat.io/jquery-drawrpalette/ "Info and demos at this link")
